@@ -1,2 +1,2 @@
 FROM rocker/geospatial
-CMD Rscript data_flu.r
+CMD Rscript data_flu.R
