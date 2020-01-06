@@ -3,6 +3,21 @@ import numpy as np
 import matplotlib.pyplot as plt
 import tensorflow as tf
 from tensorflow.keras import backend
+from pandas import DataFrame
+from pandas import Series
+from pandas import concat
+from pandas import read_csv
+from pandas import datetime
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import MinMaxScaler
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import LSTM
+# from tensorflow.keras.callbacks import Callbacks
+from math import sqrt
+from matplotlib import pyplot
+from numpy import array
+import time
 
 all_32_forecasts = []
 for r in range(1, 11):
@@ -26,21 +41,7 @@ for r in range(1, 11):
     new_ind.index = new_ind['DATE']
     series = new_ind.drop(['DATE'], axis=1)
 
-    from pandas import DataFrame
-    from pandas import Series
-    from pandas import concat
-    from pandas import read_csv
-    from pandas import datetime
-    from sklearn.metrics import mean_squared_error
-    from sklearn.preprocessing import MinMaxScaler
-    from tensorflow.keras.models import Sequential
-    from tensorflow.keras.layers import Dense
-    from tensorflow.keras.layers import LSTM
-    # from tensorflow.keras.callbacks import Callbacks
-    from math import sqrt
-    from matplotlib import pyplot
-    from numpy import array
-    import time
+
 
 
     # date-time parsing function for loading the dataset
