@@ -1,4 +1,4 @@
-###Environment setup
+## Environment setup
 1. Create the environment from the environment.yml file:
 
 ```
