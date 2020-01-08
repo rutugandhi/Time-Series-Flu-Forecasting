@@ -1,6 +1,12 @@
 import math
 from scipy.stats import norm
 import numpy as np
+import argparse
+
+parser.add_argument('--sample_submission', type=str, default="/submissions/WEEK-CEID-2019.csv",
+                    help="sample submission")
+args = parser.parse_args()
+sample_submission = args.sample_submission
 
 # def four_week_ahead_bins(point, std_dev):
 num_std_dev = 2
@@ -24,6 +30,6 @@ def point_and_bins(pred, num_std_dev, std_dev=0.3):
 bin_prob = point_and_bins(1.07543445, 2)
 
 import pandas as pd
-full = pd.read_csv("/home/rutu/flu-challenge-master/forecasts-formatted/EW44-CEID-2018-11-12.csv")
+full = pd.read_csv(sample_submission)
 
 full[((full["Location"]=="HHS Region 1") & (full["Target"]=="4 wk ahead")) ]["Value"]=bin_prob

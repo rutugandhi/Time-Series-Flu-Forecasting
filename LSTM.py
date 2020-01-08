@@ -32,7 +32,7 @@ parser.add_argument('--n_batch', type=int, default=1,
                     help='size of each training batch')
 parser.add_argument('--n_neurons', type=int, default=2,
                     help='number of neurons in one hidden layer of the model')
-parser.add_argument('--data_path', type=str, default="/Data/FluViewPhase2Data/ILINet.csv",
+parser.add_argument('--data_path', type=str, default="/data/FluViewPhase2Data/ILINet.csv",
                     help='path to ILINet.csv')
 
 
