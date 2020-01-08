@@ -18,31 +18,55 @@ from math import sqrt
 from matplotlib import pyplot
 from numpy import array
 import time
+import argparse
+
+parser.add_argument('--n_lag', type=int, default=4,
+                    help='tells the model how many weeks in the past to look at')
+parser.add_argument('--n_seq', type=int, default=4,
+                    help='tells the model how many weeks in the future to forecast')
+parser.add_argument('--n_test', type=int, default=1,
+                    help='number of weeks to take while testing')
+parser.add_argument('--n_epochs', type=int, default=1000,
+                    help='number of epochs to train the model for')
+parser.add_argument('--n_batch', type=int, default=1,
+                    help='size of each training batch')
+parser.add_argument('--n_neurons', type=int, default=2,
+                    help='number of neurons in one hidden layer of the model')
+parser.add_argument('--data_path', type=str, default="/Data/FluViewPhase2Data/ILINet.csv",
+                    help='path to ILINet.csv')
+
+
+args = parser.parse_args()
+n_lag = n_lag
+n_seq = n_seq  # 99
+n_test = n_test
+n_epochs = n_epochs
+n_batch = n_batch
+n_neurons = n_neurons
+data_path = data_path
+
+ind_og = pd.read_csv(data_path)
+# ind = data.set_index(["WEEK"])
+region = "Region"
+ind = ind_og.loc[ind_og["REGION"] == "Region " + str(r)]
+ind_next = ind_og[0:300]
+
+from epiweeks import Week, Year
+
+date = []
+for item, row in ind.iterrows():
+    week = Week(row["YEAR"], row["WEEK"])
+    # print(row["YEAR"], row["WEEK"], week.startdate())
+    date.append(week.startdate())
+ind["DATE"] = date
+
+new_ind = ind[['DATE', '% WEIGHTED ILI']]  # ,'WEEK']]
+new_ind.index = new_ind['DATE']
+series = new_ind.drop(['DATE'], axis=1)
 
 all_32_forecasts = []
+
 for r in range(1, 11):
-
-    ind_og = pd.read_csv("/home/rutu/flu-challenge-master/FluViewPhase2Data (4)/ILINet.csv")
-    # ind = data.set_index(["WEEK"])
-    region = "Region"
-    ind = ind_og.loc[ind_og["REGION"] == "Region " + str(r)]
-    ind_next = ind_og[0:300]
-
-    from epiweeks import Week, Year
-
-    date = []
-    for item, row in ind.iterrows():
-        week = Week(row["YEAR"], row["WEEK"])
-        # print(row["YEAR"], row["WEEK"], week.startdate())
-        date.append(week.startdate())
-    ind["DATE"] = date
-
-    new_ind = ind[['DATE', '% WEIGHTED ILI']]  # ,'WEEK']]
-    new_ind.index = new_ind['DATE']
-    series = new_ind.drop(['DATE'], axis=1)
-
-
-
 
     # date-time parsing function for loading the dataset
     def parser(x):
